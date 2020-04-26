@@ -1,0 +1,73 @@
+{
+  "caregories": [
+    {"categoria":"proximamente",
+      "peliculas":[
+      {
+        "uri":"https://image.tmdb.org/t/p/w220_and_h330_face/jpfkzbIXgKZqCZAkEkFH2VYF63s.jpg",
+        "name":"Cars"
+      },
+      {
+        "uri":"https://image.tmdb.org/t/p/w220_and_h330_face/qcr9bBY6MVeLzriKCmJOv1562uY.jpg",
+        "name":"Los Simpsons"
+      },
+      {
+        "uri":"https://image.tmdb.org/t/p/w220_and_h330_face/4q2NNj4S5dG2RLF9CpXsej7yXl.jpg",
+        "name":"Spider-Man"
+      },
+      {
+        "uri":"https://image.tmdb.org/t/p/w220_and_h330_face/qJdfO3ahgAMf2rcmhoqngjBBZW1.jpg",
+        "name":"Rick and Morty"
+      },
+      {
+        "uri":"https://image.tmdb.org/t/p/w220_and_h330_face/2bXbqYdUdNVa8VIWXVfclP2ICtT.jpg",
+        "name":"El rey leon"
+      }
+    ]},
+    {"categoria":"populares",
+      "peliculas":[
+      {
+        "uri":"https://image.tmdb.org/t/p/w220_and_h330_face/jpfkzbIXgKZqCZAkEkFH2VYF63s.jpg",
+        "name":"Cars"
+      },
+      {
+        "uri":"https://image.tmdb.org/t/p/w220_and_h330_face/qcr9bBY6MVeLzriKCmJOv1562uY.jpg",
+        "name":"Los Simpsons"
+      },
+      {
+        "uri":"https://image.tmdb.org/t/p/w220_and_h330_face/4q2NNj4S5dG2RLF9CpXsej7yXl.jpg",
+        "name":"Spider-Man"
+      },
+      {
+        "uri":"https://image.tmdb.org/t/p/w220_and_h330_face/qJdfO3ahgAMf2rcmhoqngjBBZW1.jpg",
+        "name":"Rick and Morty"
+      },
+      {
+        "uri":"https://image.tmdb.org/t/p/w220_and_h330_face/2bXbqYdUdNVa8VIWXVfclP2ICtT.jpg",
+        "name":"El rey leon"
+      }
+    ]},
+    {"categoria":"series",
+      "peliculas":[
+      {
+        "uri":"https://image.tmdb.org/t/p/w220_and_h330_face/jpfkzbIXgKZqCZAkEkFH2VYF63s.jpg",
+        "name":"Cars"
+      },
+      {
+        "uri":"https://image.tmdb.org/t/p/w220_and_h330_face/qcr9bBY6MVeLzriKCmJOv1562uY.jpg",
+        "name":"Los Simpsons"
+      },
+      {
+        "uri":"https://image.tmdb.org/t/p/w220_and_h330_face/4q2NNj4S5dG2RLF9CpXsej7yXl.jpg",
+        "name":"Spider-Man"
+      },
+      {
+        "uri":"https://image.tmdb.org/t/p/w220_and_h330_face/qJdfO3ahgAMf2rcmhoqngjBBZW1.jpg",
+        "name":"Rick and Morty"
+      },
+      {
+        "uri":"https://image.tmdb.org/t/p/w220_and_h330_face/2bXbqYdUdNVa8VIWXVfclP2ICtT.jpg",
+        "name":"El rey leon"
+      }
+    ]}
+  ]
+}
