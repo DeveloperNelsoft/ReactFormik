@@ -1,4 +1,11 @@
+## React training Class 4: Formik form for Validate and schemes data entry and POST.
+
+Runs the app in the development mode.<br />
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
 
 ## Available Scripts
 
