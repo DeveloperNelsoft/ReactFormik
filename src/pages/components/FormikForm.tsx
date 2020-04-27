@@ -111,7 +111,27 @@ export const FormikForm = (props:any) => {
     // }
   }
 
-  const dynamicFieldsByIdWithProductName: any[];
+  const CreateDynamicField = (id: string, name: string, type: string, inputType: string, attributeOptions: string[]) => {
+    return [{
+      "id": id,
+      "code": id,
+      "name": name,
+      "type": type,
+      "validation": "",
+      "regex": "",
+      "position": 1,
+      "width": 4,
+      "status": "ENABLED",
+      "createdAt": (new Date()),
+      "updatedAt": null,
+      "pointScore": 0,
+      "isRequired": true,
+      "isPinned": false,
+      "inputType": inputType,
+      "attributeOptions": attributeOptions !== undefined && attributeOptions.length > 0 ? [...attributeOptions] : ""}]
+};
+
+  const dynamicFieldsByIdWithProductName: never[] = [];
 
   return (
     <Modal
@@ -141,19 +161,34 @@ export const FormikForm = (props:any) => {
 
               }}
           >
-                <CardHeader>Formik Form - DataEntry Validations.</CardHeader>
+
                  <Card>
                     <Formik
                         validationSchema={CreateDynamicSchema(dynamicFieldsByIdWithProductName)}
                         initialValues= { initializeFormValues(dynamicFieldsByIdWithProductName)}
                         onSubmit={(values, actions) => {
                                         setTimeout(() => {
-                                          setPayloadFromDataForm(dynamicStepsStructure)
+                                          // setPayloadFromDataForm(dynamicStepsStructure)
                                         }, 1000)
                                       }
                                   }
                         render={({ errors, touched, isSubmitting }) => (
                             <Form >
+                                     <Box
+                                          style={{height:'60px',
+                                            border:'solid 1px #ccc',
+                                            borderRadius: '5px',
+                                            padding: '5px',
+                                            margin: '5px 5px',
+                                            backgroundColor: '#ccc',
+                                            boxShadow: '0 10px 20px rgba(0,0,0,0.19),0 6px 6px rgba(0,0,0,0.23)',
+
+                                          }}
+                                      >
+                                            <h2>Formik Form - DataEntry Validations.</h2>
+                                      </Box>
+                                    <br></br>
+                                    <br></br>
                                     <CardContent>
                                       <Grid>
                                           {/* {dynamicFieldsByIdWithProductName.map(content => this.createField(content, errors, touched))} */}
@@ -162,29 +197,31 @@ export const FormikForm = (props:any) => {
                                           </Grid>
                                       </Grid>
                                     </CardContent>
-                                          <Box  className="footerbuttons">
+                                    <br></br>
+                                    <Box
+                                          style={{height:'80px',
+                                            border:'solid 1px #ccc',
+                                            borderRadius: '5px',
+                                            padding: '20px',
+                                            margin: '10px 5px',
+                                            backgroundColor: '#dae2e5',
+                                            boxShadow: '0 10px 20px rgba(0,0,0,0.19),0 6px 6px rgba(0,0,0,0.23)',
+
+                                          }}
+                                      >
                                                   <Button type="submit" variant="contained" color="primary" size="small" className='step-button'
                                                         // disabled={this.state.addedDataInStep}
                                                         >
                                                     <Save />
-                                                    Guardar y Salir
+                                                     Guardar y Salir
                                                   </Button>
-                                                  <Button
-                                                    variant="contained"
-                                                    color="primary"
-                                                    size="small"
-                                                    // onClick={this.state.activeStep === steps.length - 1 ? this.handleSaveAndFinish : this.handleNext }
-                                                    className='step-button'>
-                                                    {/* {this.state.activeStep === steps.length - 1 ? <DoneAllIcon /> : <SkipNextIcon  />}
-                                                    {this.state.activeStep === steps.length - 1 ? 'Guardar' : 'Continuar'} */}
-
-                                                  </Button>
+                                                  <span>   </span>
                                                   <Button variant="contained" color="primary" size="small" className='step-button'>
                                                       <Cancel />
-                                                      Cancelar
+                                                       Cancelar
                                                   </Button>
-                                          </Box>
-                            </Form>
+                                      </Box>
+                           </Form>
                         )}
                     />
                 </Card>

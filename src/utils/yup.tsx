@@ -1,6 +1,6 @@
-import * as Yup from 'yup';
+import * as Yup from  'yup';
 
-function equalTo(ref, msg) {
+function equalTo(ref: any, msg: string) {
   return Yup.mixed().test({
     name: 'equalTo',
     exclusive: false,
