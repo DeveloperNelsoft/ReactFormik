@@ -5,7 +5,7 @@ import  Modal from "@material-ui/core/Modal";
 import Fade from '@material-ui/core/Fade';
 import Backdrop from '@material-ui/core/Backdrop';
 import { render } from '@testing-library/react';
-import { FormikForm } from './FormikForm'
+import FormikForm  from './FormikForm'
 
 export default class Movie extends Component<any, any> {
 // export const Movie = (props:any) => {
