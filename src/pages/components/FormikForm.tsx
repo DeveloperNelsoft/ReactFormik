@@ -71,7 +71,7 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
               >
                 <Fade in={true}>
                 <div
-                style={{height:'600px', width:'800px', textAlign:'center',
+                style={{height:'700px', width:'900px', textAlign:'center',
                         color:'white',
                         border:'solid 5px white',
                         paddingTop: '10px',
@@ -87,49 +87,56 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
 
                                               <CardContent>
                                                             <Wrapper>
-                                                                 <h1>{'Class4: Formik + Type script'}</h1>
+                                                                 <h2>{'Class4: Formik Form'}</h2>
+                                                                 <br></br>
+                                                                 <br></br>
                                                                  <form onSubmit={handleSubmit}>
-                                                                     <InputWrapper>
-                                                                        <Label>Email</Label>
-                                                                        <Input
-                                                                            width={50}
-                                                                            // casod e prueba type = email.
-                                                                            type="text"
-                                                                            name="email"
-                                                                            onChange={handleChange}
-                                                                            onBlur={handleBlur}
-                                                                            value={values.email}
-                                                                        />
-                                                                        <Label  style={{ color: 'red' }}>{errors.email }</Label>
-                                                                    </InputWrapper>
-                                                                    <InputWrapper>
-                                                                        <Label>Password</Label>
-                                                                        <Input
-                                                                            width={50}
-                                                                            type="text"
-                                                                            name="password"
-                                                                            onChange={handleChange}
-                                                                            onBlur={handleBlur}
-                                                                            value={values.password }
-                                                                        />
-                                                                        <Label  style={{ color: 'red' }}>{errors.password }</Label>
-                                                                    </InputWrapper>
-                                                                    <InputWrapper>
-                                                                        <Label>initialSize</Label>
-                                                                        <Input
-                                                                            width={50}
-                                                                            type="text"
-                                                                            name="initialSize"
-                                                                            onChange={handleChange}
-                                                                            onBlur={handleBlur}
-                                                                            value={values.initialSize }
-                                                                        />
-                                                                        <Label  style={{ color: 'red' }}>{errors.initialSize }</Label>
-                                                                    </InputWrapper>
+                                                                   <Grid container spacing={5} >
+                                                                          < Grid item xs={6}>
+                                                                              <Label>Email</Label>
+                                                                              <Input
+                                                                                  width={50}
+                                                                                  // casod e prueba type = email.
+                                                                                  type="text"
+                                                                                  name="email"
+                                                                                  onChange={handleChange}
+                                                                                  onBlur={handleBlur}
+                                                                                  value={values.email}
+                                                                              />
+                                                                                <Label  style={{ color: 'red' }}>{errors.email }</Label>
+                                                                          </Grid>
+                                                                          < Grid item xs={6}>
+                                                                              <Label>Password</Label>
+                                                                              <Input
+                                                                                  width={50}
+                                                                                  type="text"
+                                                                                  name="password"
+                                                                                  onChange={handleChange}
+                                                                                  onBlur={handleBlur}
+                                                                                  value={values.password }
+                                                                              />
+                                                                              <Label  style={{ color: 'red' }}>{errors.password }</Label>
+                                                                          </Grid>
+                                                                          < Grid item xs={6}>
+                                                                                <Label>initialSize</Label>
+                                                                                <Input
+                                                                                    width={50}
+                                                                                    type="text"
+                                                                                    name="initialSize"
+                                                                                    onChange={handleChange}
+                                                                                    onBlur={handleBlur}
+                                                                                    value={values.initialSize }
+                                                                                />
+                                                                                <Label  style={{ color: 'red' }}>{errors.initialSize }</Label>
+                                                                          </Grid>
 
-                                                                    <Box
+                                                                   </Grid>
+                                                                  < Grid container spacing={3}>
+                                                                          < Grid item xs={12}>
+                                                                              <Box
                                                                                   style={{height:'60px',
-                                                                                    border:'solid 1px #ccc',
+                                                                                    width:'140px',
+                                                                                    border:' 1px #ccc',
                                                                                     borderRadius: '5px',
                                                                                     padding: '10px',
                                                                                     margin: '10px 5px',
@@ -152,6 +159,8 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
                                                                                         <Save /> Sign In
                                                                                   </button>
                                                                           </Box>
+                                                                          </Grid>
+                                                                  </Grid>
                                                                 </form>
                                                             </Wrapper>
                                             </CardContent>
@@ -165,6 +174,8 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
     );
 };
 
+
+// REPO : https://github.com/DeveloperNelsoft/Class4
 const FormikForm = withFormik<MyFormProps, FormValues>({
     mapPropsToValues: props => ({
         email: props.initialEmail || '',
