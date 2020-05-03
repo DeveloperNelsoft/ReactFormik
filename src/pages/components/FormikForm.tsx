@@ -94,11 +94,11 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
 
     useEffect(() => {
       // window.addEventListener("keyup", handleKeyUp, false);
-      document.addEventListener("click", handleOutsideClick, false);
+      // document.addEventListener("click", handleOutsideClick, false);
 
       return () => {
         // window.removeEventListener("keyup", handleKeyUp, false);
-        document.removeEventListener("click", handleOutsideClick, false);
+        // document.removeEventListener("click", handleOutsideClick, false);
       };
     }, [handleOutsideClick]);
 
@@ -138,7 +138,7 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
                                       < Grid item xs={2}>
                                           <button
                                               color="primary"  className='step-button'
-                                              onClick={(e: any) => onCloseRequest()}
+                                               onClick={(e: any) => onCloseRequest()}
                                             >
                                                 <Close />
                                           </button>
