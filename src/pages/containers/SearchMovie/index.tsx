@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Search} from '../../components/Search'
 import {peliculas} from '../../../api/dataToSearch.json'
 // import Movie  from './../../components/Movie'
-import Movie  from './../../components/Movie'
+import {Movie}  from './../../components/Movie'
 
 export default class SearchMovie extends Component<any, any> {
   state={

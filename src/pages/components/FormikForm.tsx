@@ -1,5 +1,5 @@
 
-import React, {Component} from 'react'
+import React, { useEffect, useRef, useCallback, KeyboardEvent} from "react";
 import {
   CardHeader,
   Card,
@@ -14,7 +14,7 @@ import {
 }  from "@material-ui/core";
 import {
   Save,
-  Cancel,
+  Close,
 
 
 } from '@material-ui/icons';
@@ -25,6 +25,7 @@ import Wrapper from "./styledComponentsFormik/Wrapper";
 import InputWrapper from "./styledComponentsFormik/InputWrapper";
 import Input from "./styledComponentsFormik/Input";
 import Label from "./styledComponentsFormik/Label";
+import isNil from "lodash/isNil";
 
 interface FormValues {
     email: string;
@@ -34,14 +35,17 @@ interface FormValues {
 
 interface OtherProps {
     title?: string;
+    onCloseRequest: () => void;
 }
 
 interface MyFormProps {
     initialEmail?: string;
     initialPassword?: string;
     initialSize?: string;
+    onCloseRequest: () => void;
 }
 
+// REPO : https://github.com/DeveloperNelsoft/Class4
 const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
     const {
         values,
@@ -51,13 +55,56 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
         handleBlur,
         handleSubmit,
         isSubmitting,
-        title
+        title,
+        onCloseRequest,
     } = props;
 
+    const modal = useRef(null);
+
+    // const handleKeyUp = useCallback(
+    //   (e: any) => {
+    //     const keys = {
+    //       27: () => {
+    //         e.preventDefault();
+    //         onCloseRequest();
+    //         window.removeEventListener("keyup", handleKeyUp, false);
+    //       }
+    //     };
+
+    //     if (keys[e.keyCode]) {
+    //       keys[e.keyCode]();
+    //     }
+    //   },
+    //   [onCloseRequest]
+    // );
+
+    const handleOutsideClick = useCallback(
+      (e: any) => {
+        if (!isNil(modal)) {
+          if (modal !== null) {
+            // if (!modal.current.contains(e.target)) {
+              onCloseRequest();
+              document.removeEventListener("click", handleOutsideClick, false);
+            // }
+          }
+        }
+      },
+      [onCloseRequest]
+    );
+
+    useEffect(() => {
+      // window.addEventListener("keyup", handleKeyUp, false);
+      document.addEventListener("click", handleOutsideClick, false);
+
+      return () => {
+        // window.removeEventListener("keyup", handleKeyUp, false);
+        document.removeEventListener("click", handleOutsideClick, false);
+      };
+    }, [handleOutsideClick]);
 
 
     return (
-      <Modal
+      <Modal ref={modal}
                 // aria-labelledby="transition-modal-title"
                 // aria-describedby="transition-modal-description"
                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}
@@ -71,7 +118,7 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
               >
                 <Fade in={true}>
                 <div
-                style={{height:'700px', width:'900px', textAlign:'center',
+                style={{height:'700px', width:'700px', textAlign:'center',
                         color:'white',
                         border:'solid 5px white',
                         paddingTop: '10px',
@@ -84,18 +131,28 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
                   >
 
                          <Card>
+                              <Grid container spacing={8} >
+                                      < Grid item xs={10}>
+                                            <h3>{'Class 4: Formik Form'}</h3>
+                                      </Grid>
+                                      < Grid item xs={2}>
+                                          <button
+                                              color="primary"  className='step-button'
+                                              onClick={(e: any) => onCloseRequest()}
+                                            >
+                                                <Close />
+                                          </button>
+                                      </Grid>
+                                </Grid>
 
                                               <CardContent>
                                                             <Wrapper>
-                                                                 <h2>{'Class4: Formik Form'}</h2>
-                                                                 <br></br>
-                                                                 <br></br>
                                                                  <form onSubmit={handleSubmit}>
                                                                    <Grid container spacing={5} >
                                                                           < Grid item xs={6}>
                                                                               <Label>Email</Label>
                                                                               <Input
-                                                                                  width={50}
+                                                                                  width={100}
                                                                                   // casod e prueba type = email.
                                                                                   type="text"
                                                                                   name="email"
@@ -108,7 +165,7 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
                                                                           < Grid item xs={6}>
                                                                               <Label>Password</Label>
                                                                               <Input
-                                                                                  width={50}
+                                                                                  width={100}
                                                                                   type="text"
                                                                                   name="password"
                                                                                   onChange={handleChange}
@@ -134,8 +191,8 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
                                                                   < Grid container spacing={3}>
                                                                           < Grid item xs={12}>
                                                                               <Box
-                                                                                  style={{height:'60px',
-                                                                                    width:'140px',
+                                                                                  style={{height:'50px',
+                                                                                    width:'120px',
                                                                                     border:' 1px #ccc',
                                                                                     borderRadius: '5px',
                                                                                     padding: '10px',
@@ -158,6 +215,8 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
                                                                                       >
                                                                                         <Save /> Sign In
                                                                                   </button>
+
+
                                                                           </Box>
                                                                           </Grid>
                                                                   </Grid>
@@ -169,14 +228,13 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
                   </div>
                 </Fade>
               </Modal>
-
-
     );
 };
 
 
 // REPO : https://github.com/DeveloperNelsoft/Class4
 const FormikForm = withFormik<MyFormProps, FormValues>({
+
     mapPropsToValues: props => ({
         email: props.initialEmail || '',
         password: props.initialPassword || '',
@@ -191,12 +249,12 @@ const FormikForm = withFormik<MyFormProps, FormValues>({
         initialSize: Yup.string().required("Size is required"),
     }),
 
-    handleSubmit(
-        { email, password }: FormValues,
-        { props, setSubmitting, setErrors }
-    ) {
-        console.log(email, password);
+    // REPO : https://github.com/DeveloperNelsoft/Class4
+    handleSubmit( { email, password }: FormValues,{ props, setSubmitting, setErrors }) {
+       alert ('handleSubmit clicked.');
     }
+
+
 })(InnerForm);
 
 export default FormikForm;
