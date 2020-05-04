@@ -25,24 +25,27 @@ import Wrapper from "./styledComponentsFormik/Wrapper";
 import InputWrapper from "./styledComponentsFormik/InputWrapper";
 import Input from "./styledComponentsFormik/Input";
 import Label from "./styledComponentsFormik/Label";
-import isNil from "lodash/isNil";
 
 interface FormValues {
     email: string;
     password: string;
     initialSize: string;
+    rate: string;
 }
 
 interface OtherProps {
     title?: string;
     onCloseRequest: () => void;
+    onSetRateValueFromFormik: (val:any) => void;
 }
 
 interface MyFormProps {
     initialEmail?: string;
     initialPassword?: string;
     initialSize?: string;
+    rate?: string;
     onCloseRequest: () => void;
+    onSetRateValueFromFormik: (val:any) => void;
 }
 
 // REPO : https://github.com/DeveloperNelsoft/Class4
@@ -57,40 +60,24 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
         isSubmitting,
         title,
         onCloseRequest,
+        onSetRateValueFromFormik,
     } = props;
 
     const modal = useRef(null);
 
-    // const handleKeyUp = useCallback(
+    // const handleOutsideClick = useCallback(
     //   (e: any) => {
-    //     const keys = {
-    //       27: () => {
-    //         e.preventDefault();
-    //         onCloseRequest();
-    //         window.removeEventListener("keyup", handleKeyUp, false);
+    //     if (!isNil(modal)) {
+    //       if (modal !== null) {
+    //         // if (!modal.current.contains(e.target)) {
+    //           onCloseRequest();
+    //           document.removeEventListener("click", handleOutsideClick, false);
+    //         // }
     //       }
-    //     };
-
-    //     if (keys[e.keyCode]) {
-    //       keys[e.keyCode]();
     //     }
     //   },
     //   [onCloseRequest]
     // );
-
-    const handleOutsideClick = useCallback(
-      (e: any) => {
-        if (!isNil(modal)) {
-          if (modal !== null) {
-            // if (!modal.current.contains(e.target)) {
-              onCloseRequest();
-              document.removeEventListener("click", handleOutsideClick, false);
-            // }
-          }
-        }
-      },
-      [onCloseRequest]
-    );
 
     useEffect(() => {
       // window.addEventListener("keyup", handleKeyUp, false);
@@ -100,7 +87,9 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
         // window.removeEventListener("keyup", handleKeyUp, false);
         // document.removeEventListener("click", handleOutsideClick, false);
       };
-    }, [handleOutsideClick]);
+
+    },);
+    // }, [handleOutsideClick]);
 
 
     return (
@@ -186,7 +175,18 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
                                                                                 />
                                                                                 <Label  style={{ color: 'red' }}>{errors.initialSize }</Label>
                                                                           </Grid>
-
+                                                                          < Grid item xs={6}>
+                                                                                <Label>rate</Label>
+                                                                                <Input
+                                                                                    width={50}
+                                                                                    type="text"
+                                                                                    name="rate"
+                                                                                    onChange={handleChange}
+                                                                                    onBlur={handleBlur}
+                                                                                    value={values.rate }
+                                                                                />
+                                                                                <Label  style={{ color: 'red' }}>{errors.rate }</Label>
+                                                                          </Grid>
                                                                    </Grid>
                                                                   < Grid container spacing={3}>
                                                                           < Grid item xs={12}>
@@ -210,7 +210,8 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
                                                                                            isSubmitting ||
                                                                                           !!(errors.email && touched.email) ||
                                                                                           !!(errors.password && touched.password) ||
-                                                                                            !!(errors.initialSize && touched.initialSize)
+                                                                                            !!(errors.initialSize && touched.initialSize) ||
+                                                                                            !!(errors.rate && touched.rate)
                                                                                       }
                                                                                       >
                                                                                         <Save /> Sign In
@@ -239,6 +240,7 @@ const FormikForm = withFormik<MyFormProps, FormValues>({
         email: props.initialEmail || '',
         password: props.initialPassword || '',
         initialSize: props.initialSize || '',
+        rate: props.rate || '',
     }),
 
     validationSchema: Yup.object().shape({
@@ -247,11 +249,14 @@ const FormikForm = withFormik<MyFormProps, FormValues>({
             .required("Email is required"),
         password: Yup.string().required("Password is required"),
         initialSize: Yup.string().required("Size is required"),
+        rate: Yup.string().required("rate is required"),
     }),
 
     // REPO : https://github.com/DeveloperNelsoft/Class4
-    handleSubmit( { email, password }: FormValues,{ props, setSubmitting, setErrors }) {
-       alert ('handleSubmit clicked.');
+    handleSubmit( { email, password, rate }: FormValues,{ props, setSubmitting, setErrors }) {
+      alert('Ha pasado las validaciones de los campos de entrada, se actualizara ratio de esta movie.');
+       props.onSetRateValueFromFormik(rate);
+       props.onCloseRequest();
     }
 
 
