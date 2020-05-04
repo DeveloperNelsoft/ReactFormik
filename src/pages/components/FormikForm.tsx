@@ -27,6 +27,10 @@ import Input from "./styledComponentsFormik/Input";
 import Label from "./styledComponentsFormik/Label";
 
 interface FormValues {
+    fullName: string;
+    address: string;
+    phone: string;
+    urlField: string;
     email: string;
     password: string;
     initialSize: string;
@@ -40,12 +44,16 @@ interface OtherProps {
 }
 
 interface MyFormProps {
-    initialEmail?: string;
-    initialPassword?: string;
-    initialSize?: string;
-    rate?: string;
-    onCloseRequest: () => void;
-    onSetRateValueFromFormik: (val:any) => void;
+  fullNameInit?: string;
+  addressInit?: string;
+  phoneInit?: string;
+  urlFieldInit?: string;
+  emailInit?: string;
+  passwordInit?: string;
+  initialSizeInit?: string;
+  rateInit?: string;
+  onCloseRequest: () => void;
+  onSetRateValueFromFormik: (val:any) => void;
 }
 
 // REPO : https://github.com/DeveloperNelsoft/Class4
@@ -107,7 +115,7 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
               >
                 <Fade in={true}>
                 <div
-                style={{height:'700px', width:'700px', textAlign:'center',
+                style={{height:'600px', width:'800px', textAlign:'center',
                         color:'white',
                         border:'solid 5px white',
                         paddingTop: '10px',
@@ -137,8 +145,60 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
                                               <CardContent>
                                                             <Wrapper>
                                                                  <form onSubmit={handleSubmit}>
-                                                                   <Grid container spacing={5} >
-                                                                          < Grid item xs={6}>
+                                                                   <Grid container spacing={3} >
+                                                                          < Grid item xs={12}>
+                                                                              <Label>fullName</Label>
+                                                                              <Input
+                                                                                  width={100}
+                                                                                  // casod e prueba type = email.
+                                                                                  type="text"
+                                                                                  name="fullName"
+                                                                                  onChange={handleChange}
+                                                                                  onBlur={handleBlur}
+                                                                                  value={values.fullName}
+                                                                              />
+                                                                                <Label  style={{ color: 'red' }}>{errors.fullName }</Label>
+                                                                          </Grid>
+                                                                          < Grid item xs={12}>
+                                                                              <Label>address</Label>
+                                                                              <Input
+                                                                                  width={100}
+                                                                                  // casod e prueba type = email.
+                                                                                  type="text"
+                                                                                  name="address"
+                                                                                  onChange={handleChange}
+                                                                                  onBlur={handleBlur}
+                                                                                  value={values.address}
+                                                                              />
+                                                                                <Label  style={{ color: 'red' }}>{errors.address }</Label>
+                                                                          </Grid>
+                                                                          < Grid item xs={4}>
+                                                                              <Label>phone</Label>
+                                                                              <Input
+                                                                                  width={100}
+                                                                                  // casod e prueba type = email.
+                                                                                  type="text"
+                                                                                  name="phone"
+                                                                                  onChange={handleChange}
+                                                                                  onBlur={handleBlur}
+                                                                                  value={values.phone}
+                                                                              />
+                                                                                <Label  style={{ color: 'red' }}>{errors.phone }</Label>
+                                                                          </Grid>
+                                                                          < Grid item xs={4}>
+                                                                              <Label>urlField</Label>
+                                                                              <Input
+                                                                                  width={100}
+                                                                                  // casod e prueba type = email.
+                                                                                  type="text"
+                                                                                  name="urlField"
+                                                                                  onChange={handleChange}
+                                                                                  onBlur={handleBlur}
+                                                                                  value={values.urlField}
+                                                                              />
+                                                                                <Label  style={{ color: 'red' }}>{errors.urlField }</Label>
+                                                                          </Grid>
+                                                                          < Grid item xs={4}>
                                                                               <Label>Email</Label>
                                                                               <Input
                                                                                   width={100}
@@ -151,7 +211,7 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
                                                                               />
                                                                                 <Label  style={{ color: 'red' }}>{errors.email }</Label>
                                                                           </Grid>
-                                                                          < Grid item xs={6}>
+                                                                          < Grid item xs={4}>
                                                                               <Label>Password</Label>
                                                                               <Input
                                                                                   width={100}
@@ -163,10 +223,10 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
                                                                               />
                                                                               <Label  style={{ color: 'red' }}>{errors.password }</Label>
                                                                           </Grid>
-                                                                          < Grid item xs={6}>
+                                                                          < Grid item xs={4}>
                                                                                 <Label>initialSize</Label>
                                                                                 <Input
-                                                                                    width={50}
+                                                                                    width={100}
                                                                                     type="text"
                                                                                     name="initialSize"
                                                                                     onChange={handleChange}
@@ -175,10 +235,10 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
                                                                                 />
                                                                                 <Label  style={{ color: 'red' }}>{errors.initialSize }</Label>
                                                                           </Grid>
-                                                                          < Grid item xs={6}>
+                                                                          < Grid item xs={4}>
                                                                                 <Label>rate</Label>
                                                                                 <Input
-                                                                                    width={50}
+                                                                                    width={100}
                                                                                     type="text"
                                                                                     name="rate"
                                                                                     onChange={handleChange}
@@ -237,19 +297,29 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
 const FormikForm = withFormik<MyFormProps, FormValues>({
 
     mapPropsToValues: props => ({
-        email: props.initialEmail || '',
-        password: props.initialPassword || '',
-        initialSize: props.initialSize || '',
-        rate: props.rate || '',
+      fullName:     props.fullNameInit || '',
+      address:      props.addressInit || '',
+      phone:        props.phoneInit || '',
+      urlField:     props.urlFieldInit || '',
+      email:        props.emailInit || '',
+      password:     props.passwordInit || '',
+      initialSize:  props.initialSizeInit || '',
+      rate:         props.rateInit || '',
+
     }),
 
     validationSchema: Yup.object().shape({
+      fullName:Yup.string().required("fullName is required"),
+      address:Yup.string().required("address is required"),
+      phone:Yup.string().required("phone is required"),
+      urlField:Yup.string().required("urlField is required"),
         email: Yup.string()
             .email("Email not valid")
             .required("Email is required"),
         password: Yup.string().required("Password is required"),
         initialSize: Yup.string().required("Size is required"),
-        rate: Yup.string().required("rate is required"),
+        // rate: Yup.string().required("rate is required"),
+        rate: Yup.number().typeError('solo se aceptan numeros').required("rate is required"),
     }),
 
     // REPO : https://github.com/DeveloperNelsoft/Class4
