@@ -52,6 +52,7 @@ interface MyFormProps {
   passwordInit?: string;
   initialSizeInit?: string;
   rateInit?: string;
+
   onCloseRequest: () => void;
   onSetRateValueFromFormik: (val:any) => void;
 }
@@ -292,7 +293,11 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
     );
 };
 
-
+  const phoneRegEx =  /^(\+56)\D*([2-9])(\d{4}) (\d{4})$/;
+  const initialSizeFunct = 'if (value.length > 5) { return true; } else { return false; } ';
+  const initialSizeFunctMessage = 'minimum 5 digits';
+  const addressFunct = 'if (value.length > 15) { return false; } else { return true; } ';
+  const addressFunctMessage = 'max 15 characters';
 // REPO : https://github.com/DeveloperNelsoft/Class4
 const FormikForm = withFormik<MyFormProps, FormValues>({
 
@@ -309,17 +314,32 @@ const FormikForm = withFormik<MyFormProps, FormValues>({
     }),
 
     validationSchema: Yup.object().shape({
+
       fullName:Yup.string().required("fullName is required"),
-      address:Yup.string().required("address is required"),
-      phone:Yup.string().required("phone is required"),
-      urlField:Yup.string().required("urlField is required"),
-        email: Yup.string()
-            .email("Email not valid")
-            .required("Email is required"),
-        password: Yup.string().required("Password is required"),
-        initialSize: Yup.string().required("Size is required"),
-        // rate: Yup.string().required("rate is required"),
-        rate: Yup.number().typeError('solo se aceptan numeros').required("rate is required"),
+      address:Yup.string().required("address is required")
+            .test("OK", addressFunctMessage, value => {
+              if(value !== undefined) {
+                const result = new Function('value', addressFunct);
+                return result(value);
+              }
+          }),
+      // phone:Yup.string().required("phone is required"),
+      phone:Yup.string().matches(phoneRegEx, 'valid +56 9XXXX XXXX').required("phone is required"),
+
+      urlField:Yup.string().url('url invalid').required("url is required"),
+      email: Yup.string().email("Email not valid").required("Email is required"),
+      password: Yup.string().required("Password is required"),
+
+      // rate: Yup.string().required("rate is required"),
+      rate: Yup.number().typeError('only Number').required("rate is required"),
+      // initialSize: Yup.string().required("Size is required"),
+      initialSize: Yup.string().required("Size is required")
+          .test("OK", initialSizeFunctMessage, value => {
+            if(value !== undefined) {
+              const result = new Function('value', initialSizeFunct);
+              return result(value);
+            }
+        }),
     }),
 
     // REPO : https://github.com/DeveloperNelsoft/Class4
