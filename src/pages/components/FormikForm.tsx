@@ -25,6 +25,8 @@ import Wrapper from "./styledComponentsFormik/Wrapper";
 import InputWrapper from "./styledComponentsFormik/InputWrapper";
 import Input from "./styledComponentsFormik/Input";
 import Label from "./styledComponentsFormik/Label";
+import Select from "react-select";
+
 
 interface FormValues {
     fullName: string;
@@ -35,6 +37,7 @@ interface FormValues {
     password: string;
     initialSize: string;
     rate: string;
+    topicSelect: string;
 }
 
 interface OtherProps {
@@ -52,6 +55,7 @@ interface MyFormProps {
   passwordInit?: string;
   initialSizeInit?: string;
   rateInit?: string;
+  topicSelect?: string;
 
   onCloseRequest: () => void;
   onSetRateValueFromFormik: (val:any) => void;
@@ -99,7 +103,7 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
 
     },);
     // }, [handleOutsideClick]);
-
+    const optionsValues = ['Food', 'water'];
 
     return (
       <Modal ref={modal}
@@ -213,16 +217,31 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
                                                                                 <Label  style={{ color: 'red' }}>{errors.email }</Label>
                                                                           </Grid>
                                                                           < Grid item xs={4}>
-                                                                              <Label>Password</Label>
-                                                                              <Input
+                                                                              <Label>topics</Label>
+                                                                              {/* <Input
                                                                                   width={100}
                                                                                   type="text"
                                                                                   name="password"
                                                                                   onChange={handleChange}
                                                                                   onBlur={handleBlur}
                                                                                   value={values.password }
-                                                                              />
-                                                                              <Label  style={{ color: 'red' }}>{errors.password }</Label>
+                                                                              /> */}
+                                                                                   <select
+                                                                                      id="topicSelect"
+                                                                                      name="topicSelect"
+                                                                                      onChange={handleChange}
+                                                                                      onBlur={handleBlur}
+                                                                                      style={{height:'50px', width:'180px',
+                                                                                            color:'blue',
+                                                                                            border:'solid 2px grey',
+                                                                                            backgroundColor: 'white',
+                                                                                        }}
+                                                                                    >
+                                                                                          <option value="0"></option>
+                                                                                          <option value="1">QA Tester</option>
+                                                                                          <option value="2">Developer</option>
+                                                                                    </select>
+                                                                              <Label  style={{ color: 'red' }}>{errors.topicSelect }</Label>
                                                                           </Grid>
                                                                           < Grid item xs={4}>
                                                                                 <Label>initialSize</Label>
@@ -310,12 +329,14 @@ const FormikForm = withFormik<MyFormProps, FormValues>({
       password:     props.passwordInit || '',
       initialSize:  props.initialSizeInit || '',
       rate:         props.rateInit || '',
+      topicSelect:         props.topicSelect || '',
 
     }),
 
     validationSchema: Yup.object().shape({
 
       fullName:Yup.string().required("fullName is required"),
+
       address:Yup.string().required("address is required")
             .test("OK", addressFunctMessage, value => {
               if(value !== undefined) {
@@ -328,7 +349,14 @@ const FormikForm = withFormik<MyFormProps, FormValues>({
 
       urlField:Yup.string().url('url invalid').required("url is required"),
       email: Yup.string().email("Email not valid").required("Email is required"),
-      password: Yup.string().required("Password is required"),
+
+      // topicSelect: Yup.string().oneOf(['1', '2']).required("topic is required"),
+      // topicSelect: Yup.string().oneOf([ '2'],'only for developer').required("topic is required"),
+
+      topicSelect: Yup.string().notOneOf(['0', '1'],'only for Developer').required("topic is required"),
+
+      //topicSelect:  Yup.string().notOneOf([Yup.ref('topicSelect'), null], 'Flavors must not match.'),
+
 
       // rate: Yup.string().required("rate is required"),
       rate: Yup.number().typeError('only Number').required("rate is required"),
